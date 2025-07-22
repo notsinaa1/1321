@@ -1,75 +1,88 @@
 document.addEventListener('DOMContentLoaded', () => {
     const messageArea = document.getElementById('message-area');
-    const resultArea = document.getElementById('result-area');
+    const resultArea = document.getElementById('result-area'); // Bu artık kullanılmayabilir ama kalsın
     const yesBtn = document.getElementById('yes-btn');
     const noBtn = document.getElementById('no-btn');
-    const container = document.querySelector('.container');
+    const container = document.querySelector('.container'); // Ana kutu
     const body = document.body;
 
     yesBtn.addEventListener('click', () => {
+        // Evet butonuna basıldığında
         messageArea.classList.add('hidden'); // Mesaj ve butonları gizle
-        
-        // "Teşekkürler!" mesajını oluşturalım
-        const thankYouMessage = document.createElement('p');
-        thankYouMessage.id = 'result-text'; // ID veriyoruz ki JS ile kontrol edebilelim
-        thankYouMessage.className = 'result-message success';
-        thankYouMessage.textContent = 'Teşekkürler!';
-        resultArea.appendChild(thankYouMessage); // Sonuç alanına ekle
-        
-        resultArea.classList.remove('hidden'); // Sonuç alanını görünür yap
-        setTimeout(() => {
-            thankYouMessage.classList.add('visible'); // Animasyonu tetikle
-        }, 10); // Çok kısa bir gecikme ile görünür yap
+        container.classList.add('hidden'); // Ana kutuyu da gizle
 
-        container.style.backgroundColor = 'rgba(230, 255, 230, 0.9)'; // Kutu rengini değiştir
-        body.style.background = 'linear-gradient(135deg, #e6ffe6, #d0ffd0)'; // Arka planı yeşile yakın yap
+        // "Teşekkürler!" mesajını oluşturalım ve tüm ekranı kaplasın
+        const thankYouMessage = document.createElement('p');
+        thankYouMessage.id = 'thank-you-text'; // Yeni ID
+        thankYouMessage.className = 'result-message success full-screen-overlay'; // Yeni full-screen sınıfı
+        thankYouMessage.textContent = 'Teşekkürler!';
+        body.appendChild(thankYouMessage); // Doğrudan body'ye ekle
+
+        // Görünür yap ve animasyonu başlat
+        setTimeout(() => {
+            thankYouMessage.classList.add('visible');
+            thankYouMessage.style.transform = 'translateY(0)'; // Animasyon için
+        }, 10);
+
+        // Arka planı başarı renklerine çevir
+        body.style.background = 'linear-gradient(135deg, #e6ffe6, #d0ffd0)';
     });
 
     noBtn.addEventListener('click', () => {
-        messageArea.classList.add('hidden'); // Mesaj ve butonları gizle
-        
-        // "Peki..." mesajını oluşturalım
-        const okayMessage = document.createElement('p');
-        okayMessage.id = 'result-text'; // ID veriyoruz
-        okayMessage.className = 'result-message fail';
-        okayMessage.textContent = 'Peki...';
-        resultArea.appendChild(okayMessage); // Sonuç alanına ekle
+        // Hayır butonuna basıldığında
+        messageArea.classList.add('hidden'); // Mesaj ve orijinal butonları gizle
+        container.classList.add('hidden'); // Ana kutuyu da gizle
 
-        resultArea.classList.remove('hidden'); // Sonuç alanını görünür yap
-        setTimeout(() => {
-            okayMessage.classList.add('visible'); // Animasyonu tetikle
-        }, 10);
+        // Büyüyecek "EVET!" metni için bir element oluştur
+        const growingEvet = document.createElement('p');
+        growingEvet.id = 'growing-yes-effect'; // Bu efekte özel ID
+        growingEvet.className = 'result-message fail'; // Başlangıçta "Hayır" renginde başlasın
+        growingEvet.textContent = 'EVET!'; // Direk "EVET!" olarak başlasın
 
-        // Arka plan ve kutu rengini kırmızıya yakın yap
-        container.style.backgroundColor = 'rgba(255, 230, 230, 0.9)';
-        body.style.background = 'linear-gradient(135deg, #ffe6e6, #ffd0d0)';
+        // İlk konumlandırma ve boyutlandırma
+        growingEvet.style.position = 'fixed';
+        growingEvet.style.top = '50%';
+        growingEvet.style.left = '50%';
+        growingEvet.style.transform = 'translate(-50%, -50%) scale(1)'; // Merkezden başla, normal boyut
+        growingEvet.style.zIndex = '9999'; // En üstte olsun
+        growingEvet.style.transition = 'none'; // Başlangıçta animasyon olmasın
+        growingEvet.style.opacity = '1'; // Görünür olsun
+        growingEvet.style.fontSize = '2em'; // Başlangıç font boyutu (CSS'teki result-message ile uyumlu)
+        growingEvet.style.whiteSpace = 'nowrap'; // Yazının tek satırda kalmasını sağla
 
-        // "Peki..." yazısını yavaş yavaş büyüterek tüm ekranı kaplatma
-        let fontSize = 2.2; // Başlangıç font boyutu (em) - CSS'teki initial boyutuyla uyumlu
-        const finalFontSize = Math.max(window.innerWidth, window.innerHeight) / 30; // Ekran boyutuna göre nihai büyüklük
+        body.appendChild(growingEvet); // Body'ye ekle
 
+        // Tarayıcının stil güncellemelerini işlemesi için küçük bir bekleme
+        void growingEvet.offsetWidth;
+
+        // Büyüme animasyonunu başlat
+        let scale = 1;
         const growInterval = setInterval(() => {
-            fontSize += 0.5; // Büyüme hızı
-            okayMessage.style.fontSize = `${fontSize}em`;
+            scale += 0.05; // Büyüme hızı, istediğin gibi ayarlayabilirsin
+            growingEvet.style.transform = `translate(-50%, -50%) scale(${scale})`;
 
-            if (fontSize * 16 > window.innerHeight * 0.8 || fontSize * 16 > window.innerWidth * 0.8) { // Yazı ekranın büyük kısmını kapladığında
+            // Belli bir boyuta geldiğinde veya ekranı kapladığında
+            if (scale > 15) { // Bu değeri ekran boyutuna göre test ederek ayarlayabilirsin
                 clearInterval(growInterval); // Büyümeyi durdur
 
-                okayMessage.textContent = "EVET!"; // Yazıyı "EVET!" olarak değiştir
-                okayMessage.style.position = 'fixed'; // Ekranı kaplaması için sabit konum
-                okayMessage.style.top = '0';
-                okayMessage.style.left = '0';
-                okayMessage.style.width = '100%';
-                okayMessage.style.height = '100%';
-                okayMessage.style.backgroundColor = '#d9534f'; // Kırmızı arka plan
-                okayMessage.style.display = 'flex'; // Ortalamak için
-                okayMessage.style.alignItems = 'center';
-                okayMessage.style.justifyContent = 'center';
-                okayMessage.style.zIndex = '9999'; // En üste çıkar
-                okayMessage.style.fontSize = `${finalFontSize}px`; // Son boyutu ayarla
-                okayMessage.style.borderRadius = '0'; // Köşeleri kaldır
-                okayMessage.style.boxShadow = 'none'; // Gölgeyi kaldır
+                // Son hali: Tüm ekranı kapla ve yeşile dön
+                growingEvet.style.top = '0';
+                growingEvet.style.left = '0';
+                growingEvet.style.width = '100%';
+                growingEvet.style.height = '100%';
+                growingEvet.style.borderRadius = '0';
+                growingEvet.style.boxShadow = 'none';
+                growingEvet.style.backgroundColor = '#5cb85c'; // Başarı rengi yeşil
+                growingEvet.style.color = 'white'; // Yazı rengini beyaz yap
+                growingEvet.style.fontSize = '20vw'; // Ekranı kaplayacak kadar büyük font
+                growingEvet.style.display = 'flex';
+                growingEvet.style.alignItems = 'center';
+                growingEvet.style.justifyContent = 'center';
+                growingEvet.style.transform = 'none'; // Transform'u kaldırarak tam ortalanmasını sağla
             }
-        }, 50); // Her 50 milisaniyede bir büyüt (daha akıcı)
+        }, 30); // Animasyonun akıcılığı (düşük sayı daha akıcı)
+
+        // Arka plan rengini başlangıçta "Hayır" rengi yap
+        body.style.background = 'linear-gradient(135deg, #ffe6e6, #ffd0d0)';
     });
 });
