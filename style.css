@@ -1,18 +1,216 @@
+body {
+    margin: 0;
+    font-family: 'Montserrat', sans-serif;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh;
+    background: #fdfaf6 url('https://www.transparenttextures.com/patterns/cream-pixels.png'); /* Krem piksel dokusu */
+    background-size: cover;
+    color: #4a4a4a;
+    text-align: center;
+    padding: 20px;
+    box-sizing: border-box;
+    transition: background 0.7s ease-in-out;
+    position: relative;
+    overflow: hidden;
+}
+
+.container {
+    background-color: rgba(255, 255, 255, 0.95);
+    padding: 50px 40px;
+    border-radius: 20px;
+    box-shadow: 0 15px 40px rgba(0, 0, 0, 0.2);
+    max-width: 650px;
+    width: 90%;
+    border: 1px solid rgba(0, 0, 0, 0.05);
+    transition: all 0.5s ease-in-out;
+    z-index: 10;
+    position: relative;
+}
+
+h1 {
+    font-family: 'Playfair Display', serif;
+    color: #5d4a67;
+    font-size: 3em;
+    margin-bottom: 30px;
+    letter-spacing: 1px;
+}
+
+.main-message {
+    font-size: 1.2em;
+    line-height: 1.7;
+    color: #666;
+    margin-bottom: 35px;
+}
+
+.question {
+    font-size: 1.5em;
+    font-weight: bold;
+    color: #7b68ee;
+    margin-bottom: 30px;
+}
+
+.buttons {
+    display: flex;
+    justify-content: center;
+    gap: 25px;
+    margin-top: 25px;
+}
+
+.btn {
+    padding: 15px 35px;
+    font-size: 1.2em;
+    font-weight: bold;
+    border: none;
+    border-radius: 30px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+}
+
+.btn.yes {
+    background-color: #6c7b95;
+    color: white;
+}
+
+.btn.yes:hover {
+    background-color: #5a6b82;
+    transform: translateY(-3px);
+    box-shadow: 0 8px 15px rgba(0, 0, 0, 0.2);
+}
+
+.btn.no {
+    background-color: #b76e79;
+    color: white;
+}
+
+.btn.no:hover {
+    background-color: #a35d68;
+    transform: translateY(-3px);
+    box-shadow: 0 8px 15px rgba(0, 0, 0, 0.2);
+}
+
+.signature {
+    font-size: 1.3em;
+    font-weight: bold;
+    color: #5d4a67;
+    margin-top: 50px;
+    font-style: italic;
+}
+
+/* Dekorasyon Görselleri */
+.decoration {
+    position: absolute;
+    width: 200px;
+    height: auto;
+    object-fit: contain;
+    z-index: 5;
+    opacity: 0.7;
+    filter: drop-shadow(0 5px 10px rgba(0,0,0,0.1));
+    transition: transform 0.5s ease;
+}
+
+.decoration.left-decoration {
+    left: -80px;
+    top: 50%;
+    transform: translateY(-50%) rotate(-10deg);
+}
+
+.decoration.right-decoration {
+    right: -80px;
+    top: 50%;
+    transform: translateY(-50%) rotate(10deg);
+}
+
+/* JavaScript ile kontrol edilecek gizli/görünür sınıfları */
+.hidden {
+    opacity: 0;
+    visibility: hidden;
+    height: 0;
+    overflow: hidden;
+    margin: 0;
+    padding: 0;
+    transition: opacity 0.5s ease, visibility 0.5s ease, height 0s 0.5s;
+}
+
+.visible {
+    opacity: 1;
+    visibility: visible;
+    height: auto;
+    overflow: visible;
+    margin: auto;
+    padding: auto;
+    transition: opacity 0.5s ease, visibility 0.5s ease;
+}
+
+.result-message {
+    font-size: 2.2em;
+    font-weight: bold;
+    margin-top: 30px;
+    padding: 25px;
+    border-radius: 15px;
+    color: #fff;
+    opacity: 0;
+    transform: translateY(30px);
+    transition: opacity 0.6s ease-out, transform 0.6s ease-out, font-size 0.5s ease-out;
+    text-align: center;
+}
+
+.result-message.visible {
+    opacity: 1;
+    transform: translateY(0);
+}
+
+.result-message.success {
+    background-color: #5cb85c;
+    box-shadow: 0 5px 15px rgba(40, 167, 69, 0.3);
+}
+
+.result-message.fail {
+    background-color: #d9534f;
+    box-shadow: 0 5px 15px rgba(220, 53, 69, 0.3);
+}
+
 /* Yeni eklenen: Tüm ekranı kaplayan mesajlar için */
 .full-screen-overlay {
     position: fixed;
     top: 0;
     left: 0;
-    width: 100vw; /* Viewport genişliği */
-    height: 100vh; /* Viewport yüksekliği */
+    width: 100vw;
+    height: 100vh;
     display: flex;
     justify-content: center;
     align-items: center;
     z-index: 9999;
-    background-color: transparent; /* Başlangıçta şeffaf */
-    color: white; /* Varsayılan yazı rengi */
-    font-size: 20vw; /* Ekranı kaplayan font boyutu */
+    background-color: transparent;
+    color: white;
+    font-size: 20vw;
     font-weight: bold;
     text-shadow: 2px 2px 4px rgba(0,0,0,0.3);
     transition: background-color 0.5s ease-in-out;
+}
+
+/* Küçük ekranlar için responsive ayarlar */
+@media (max-width: 768px) {
+    h1 {
+        font-size: 2em;
+    }
+    .main-message, .question {
+        font-size: 1em;
+    }
+    .btn {
+        padding: 10px 20px;
+        font-size: 1em;
+    }
+    .container {
+        padding: 25px 20px;
+    }
+    .result-message {
+        font-size: 1.5em;
+    }
+    .decoration {
+        display: none; /* Küçük ekranlarda dekorasyonları gizle */
+    }
 }
