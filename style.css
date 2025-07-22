@@ -1,0 +1,154 @@
+body {
+    margin: 0;
+    font-family: 'Montserrat', sans-serif;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh;
+    background: linear-gradient(135deg, #f0f8ff, #e0ffff); /* Yumuşak bir gradyan arka plan */
+    color: #333;
+    text-align: center;
+    padding: 20px;
+    box-sizing: border-box;
+    transition: background 0.5s ease-in-out; /* Arka plan değişimi için animasyon */
+}
+
+.container {
+    background-color: rgba(255, 255, 255, 0.9);
+    padding: 40px 30px;
+    border-radius: 15px;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.15);
+    max-width: 600px;
+    width: 90%;
+    transition: opacity 0.5s ease-in-out; /* İçerik geçişleri için animasyon */
+}
+
+h1 {
+    color: #4682b4;
+    font-size: 2.5em;
+    margin-bottom: 25px;
+}
+
+.main-message {
+    font-size: 1.1em;
+    line-height: 1.6;
+    color: #555;
+    margin-bottom: 30px;
+}
+
+.question {
+    font-size: 1.3em;
+    font-weight: bold;
+    color: #6a5acd;
+    margin-bottom: 25px;
+}
+
+.buttons {
+    display: flex;
+    justify-content: center;
+    gap: 20px; /* Butonlar arası boşluk */
+    margin-top: 20px;
+}
+
+.btn {
+    padding: 12px 25px;
+    font-size: 1.1em;
+    font-weight: bold;
+    border: none;
+    border-radius: 8px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+}
+
+.btn.yes {
+    background-color: #4CAF50; /* Yeşil */
+    color: white;
+}
+
+.btn.yes:hover {
+    background-color: #45a049;
+    transform: translateY(-2px); /* Hafif yukarı kayma efekti */
+}
+
+.btn.no {
+    background-color: #f44336; /* Kırmızı */
+    color: white;
+}
+
+.btn.no:hover {
+    background-color: #da190b;
+    transform: translateY(-2px);
+}
+
+.signature {
+    font-size: 1.2em;
+    font-weight: bold;
+    color: #6a5acd;
+    margin-top: 40px; /* Butonlardan sonra biraz daha boşluk */
+}
+
+/* JavaScript ile kontrol edilecek gizli sınıf */
+.hidden {
+    opacity: 0;
+    visibility: hidden;
+    height: 0;
+    overflow: hidden;
+    margin: 0;
+    padding: 0;
+    transition: opacity 0.5s ease, visibility 0.5s ease, height 0s 0.5s;
+}
+
+.visible {
+    opacity: 1;
+    visibility: visible;
+    height: auto;
+    overflow: visible;
+    margin: auto;
+    padding: auto;
+    transition: opacity 0.5s ease, visibility 0.5s ease;
+}
+
+.result-message {
+    font-size: 2em;
+    font-weight: bold;
+    margin-top: 30px;
+    padding: 20px;
+    border-radius: 10px;
+    color: #fff;
+    opacity: 0; /* Başlangıçta gizli */
+    transform: translateY(20px); /* Hafif aşağıdan başlama */
+    transition: opacity 0.5s ease-out, transform 0.5s ease-out;
+}
+
+.result-message.visible {
+    opacity: 1;
+    transform: translateY(0);
+}
+
+.result-message.success {
+    background-color: #28a745; /* Yeşil arka plan */
+}
+
+.result-message.fail {
+    background-color: #dc3545; /* Kırmızı arka plan */
+}
+
+/* Küçük ekranlar için responsive ayarlar */
+@media (max-width: 768px) {
+    h1 {
+        font-size: 2em;
+    }
+    .main-message, .question {
+        font-size: 1em;
+    }
+    .btn {
+        padding: 10px 20px;
+        font-size: 1em;
+    }
+    .container {
+        padding: 25px 20px;
+    }
+    .result-message {
+        font-size: 1.5em;
+    }
+}
