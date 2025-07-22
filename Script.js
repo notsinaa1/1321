@@ -8,11 +8,11 @@ document.addEventListener('DOMContentLoaded', () => {
     // EVET butonuna tıklandığında
     yesBtn.addEventListener('click', () => {
         messageArea.classList.add('hidden'); // Mesaj ve butonları gizle
-        container.classList.add('hidden'); // Ana kutuyu gizle
+        container.classList.add('hidden'); // Ana kutuyu gizle (fading out the main box)
 
         // "Teşekkürler!" mesajını oluştur ve ekrana getir
         const thankYouMessage = document.createElement('p');
-        thankYouMessage.id = 'thank-you-text';
+        thankYouMessage.id = 'thank-you-text'; // Yeni ID
         thankYouMessage.className = 'result-message success full-screen-overlay'; // Tam ekran ve başarılı stil
         thankYouMessage.textContent = 'Teşekkürler!';
         body.appendChild(thankYouMessage); // Doğrudan body'ye ekle
@@ -20,7 +20,7 @@ document.addEventListener('DOMContentLoaded', () => {
         // Animasyonu başlat
         setTimeout(() => {
             thankYouMessage.classList.add('visible');
-            thankYouMessage.style.transform = 'translateY(0)';
+            thankYouMessage.style.transform = 'translateY(0)'; // Animasyon için
         }, 10);
 
         // Arka planı yeşil tonlarına çevir
@@ -31,12 +31,12 @@ document.addEventListener('DOMContentLoaded', () => {
     noBtn.addEventListener('click', () => {
         // Mevcut içeriği gizle
         messageArea.classList.add('hidden'); // Mesaj ve orijinal butonları gizle
-        container.classList.add('hidden'); // Ana kutuyu gizle
+        container.classList.add('hidden'); // Ana kutuyu da gizle
 
-        // Yeni, büyüyen EVET efekti için bir element oluştur
+        // Büyüyecek "EVET!" metni için bir element oluştur
         const growingEvetEffect = document.createElement('p'); // p etiketi kullanıyoruz
         growingEvetEffect.id = 'growing-yes-effect';
-        growingEvetEffect.className = 'result-message fail'; // Başlangıçta Hayır rengi ama text EVET olacak
+        growingEvetEffect.className = 'result-message fail'; // Başlangıçta "Hayır" rengi ama text "EVET" olacak
         growingEvetEffect.textContent = 'EVET!'; // Metni EVET olarak ayarla
 
         // İlk konumlandırma ve stil ayarları
@@ -52,10 +52,12 @@ document.addEventListener('DOMContentLoaded', () => {
         growingEvetEffect.style.borderRadius = '30px'; // Buton gibi yuvarlak köşeler
         growingEvetEffect.style.backgroundColor = '#6c7b95'; // EVET butonunun orijinal rengi (mavi-gri)
         growingEvetEffect.style.color = 'white'; // Yazı rengi beyaz
+        growingEvetEffect.style.whiteSpace = 'nowrap'; // Yazının tek satırda kalmasını sağlar
 
         body.appendChild(growingEvetEffect); // Body'ye ekle
 
         // Tarayıcının stil güncellemelerini işlemesi için küçük bir bekleme
+        // Bu, animasyonun düzgün başlaması için önemlidir
         void growingEvetEffect.offsetWidth;
 
         // Büyüme animasyonunu başlat
@@ -64,14 +66,14 @@ document.addEventListener('DOMContentLoaded', () => {
             scale += 0.05; // Büyüme hızı (daha hızlı veya yavaş ayarlayabilirsin)
             growingEvetEffect.style.transform = `translate(-50%, -50%) scale(${scale})`;
 
-            // Belirli bir boyuta geldiğinde tüm ekranı kaplasın
+            // Belli bir boyuta geldiğinde tüm ekranı kaplasın
             // Bu kısım, yazının ekranı kaplamaya başladığı eşik
-            if (scale > 15) { // Bu değeri ekran çözünürlüğüne göre ayarlayabilirsin
+            if (scale > 15) { // Bu değeri ekran çözünürlüğüne göre test ederek ayarlayabilirsin
                 clearInterval(growInterval); // Büyümeyi durdur
 
                 // Son hali: Tüm ekranı kapla ve stile son dokunuşlar
                 growingEvetEffect.style.top = '0';
-                growingEvetEffect.style.left = '0';
+                growingEvet.style.left = '0';
                 growingEvetEffect.style.width = '100%';
                 growingEvetEffect.style.height = '100%';
                 growingEvetEffect.style.borderRadius = '0'; // Yuvarlak köşeleri kaldır
