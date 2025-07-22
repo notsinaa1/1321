@@ -1,93 +1,131 @@
 body {
     margin: 0;
-    font-family: 'Montserrat', sans-serif;
+    font-family: 'Montserrat', sans-serif; /* Ana font */
     display: flex;
     justify-content: center;
     align-items: center;
     min-height: 100vh;
-    background: linear-gradient(135deg, #f0f8ff, #e0ffff); /* Yumuşak bir gradyan arka plan */
-    color: #333;
+    /* Yeni arka plan teması: Hafif kirli beyaz doku veya zarif bir gradyan */
+    background: #fdfaf6 url('https://www.transparenttextures.com/patterns/cream-pixels.png'); /* Krem piksel dokusu */
+    background-size: cover; /* Arka plan resmini ekranı kaplayacak şekilde ayarla */
+    color: #4a4a4a; /* Daha koyu gri yazı rengi */
     text-align: center;
     padding: 20px;
     box-sizing: border-box;
-    transition: background 0.5s ease-in-out; /* Arka plan değişimi için animasyon */
+    transition: background 0.7s ease-in-out; /* Arka plan değişimi için animasyon süresini artırdık */
+    position: relative; /* Dekoratif resimler için */
+    overflow: hidden; /* Dışarı taşmaları engelle */
 }
 
 .container {
-    background-color: rgba(255, 255, 255, 0.9);
-    padding: 40px 30px;
-    border-radius: 15px;
-    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.15);
-    max-width: 600px;
+    background-color: rgba(255, 255, 255, 0.95); /* Daha az şeffaf, daha beyaz kutu */
+    padding: 50px 40px; /* Daha fazla iç boşluk */
+    border-radius: 20px; /* Daha yuvarlak köşeler */
+    box-shadow: 0 15px 40px rgba(0, 0, 0, 0.2); /* Daha belirgin ve yaygın gölge */
+    max-width: 650px; /* Kutunun maksimum genişliğini artırdık */
     width: 90%;
-    transition: opacity 0.5s ease-in-out; /* İçerik geçişleri için animasyon */
+    border: 1px solid rgba(0, 0, 0, 0.05); /* Çok hafif bir kenarlık */
+    transition: all 0.5s ease-in-out; /* Kutunun genel geçişleri için */
+    z-index: 10; /* İçeriği dekorasyonların üzerinde tut */
+    position: relative;
 }
 
 h1 {
-    color: #4682b4;
-    font-size: 2.5em;
-    margin-bottom: 25px;
+    font-family: 'Playfair Display', serif; /* Başlık için farklı bir font (isteğe bağlı) */
+    color: #5d4a67; /* Daha derin mor tonu */
+    font-size: 3em; /* Başlık boyutunu büyüttük */
+    margin-bottom: 30px;
+    letter-spacing: 1px; /* Harfler arası boşluk */
 }
 
 .main-message {
-    font-size: 1.1em;
-    line-height: 1.6;
-    color: #555;
-    margin-bottom: 30px;
+    font-size: 1.2em; /* Mesaj yazı boyutunu büyüttük */
+    line-height: 1.7;
+    color: #666; /* Daha açık gri mesaj rengi */
+    margin-bottom: 35px;
 }
 
 .question {
-    font-size: 1.3em;
+    font-size: 1.5em;
     font-weight: bold;
-    color: #6a5acd;
-    margin-bottom: 25px;
+    color: #7b68ee; /* Daha belirgin mor tonu */
+    margin-bottom: 30px;
 }
 
 .buttons {
     display: flex;
     justify-content: center;
-    gap: 20px; /* Butonlar arası boşluk */
-    margin-top: 20px;
+    gap: 25px; /* Butonlar arası boşluğu artırdık */
+    margin-top: 25px;
 }
 
 .btn {
-    padding: 12px 25px;
-    font-size: 1.1em;
+    padding: 15px 35px; /* Buton boyutlarını büyüttük */
+    font-size: 1.2em;
     font-weight: bold;
     border: none;
-    border-radius: 8px;
+    border-radius: 30px; /* Daha oval butonlar */
     cursor: pointer;
     transition: all 0.3s ease;
+    text-transform: uppercase; /* Büyük harfler */
+    letter-spacing: 0.5px;
 }
 
 .btn.yes {
-    background-color: #4CAF50; /* Yeşil */
+    background-color: #6c7b95; /* Mavi-gri */
     color: white;
 }
 
 .btn.yes:hover {
-    background-color: #45a049;
-    transform: translateY(-2px); /* Hafif yukarı kayma efekti */
+    background-color: #5a6b82;
+    transform: translateY(-3px); /* Daha belirgin efekt */
+    box-shadow: 0 8px 15px rgba(0, 0, 0, 0.2);
 }
 
 .btn.no {
-    background-color: #f44336; /* Kırmızı */
+    background-color: #b76e79; /* Pudra pembesi */
     color: white;
 }
 
 .btn.no:hover {
-    background-color: #da190b;
-    transform: translateY(-2px);
+    background-color: #a35d68;
+    transform: translateY(-3px);
+    box-shadow: 0 8px 15px rgba(0, 0, 0, 0.2);
 }
 
 .signature {
-    font-size: 1.2em;
+    font-size: 1.3em;
     font-weight: bold;
-    color: #6a5acd;
-    margin-top: 40px; /* Butonlardan sonra biraz daha boşluk */
+    color: #5d4a67;
+    margin-top: 50px;
+    font-style: italic; /* Eğik yazı */
 }
 
-/* JavaScript ile kontrol edilecek gizli sınıf */
+/* Dekorasyon Görselleri */
+.decoration {
+    position: absolute;
+    width: 200px; /* Resimlerin genişliği */
+    height: auto;
+    object-fit: contain; /* Resmin oranını koru */
+    z-index: 5; /* İçeriğin altında kalması için */
+    opacity: 0.7; /* Hafif şeffaf */
+    filter: drop-shadow(0 5px 10px rgba(0,0,0,0.1)); /* Hafif gölge */
+    transition: transform 0.5s ease; /* Animasyon */
+}
+
+.decoration.left-decoration {
+    left: -80px; /* Sol dışarıda başlasın */
+    top: 50%;
+    transform: translateY(-50%) rotate(-10deg); /* Hafif döndür */
+}
+
+.decoration.right-decoration {
+    right: -80px; /* Sağ dışarıda başlasın */
+    top: 50%;
+    transform: translateY(-50%) rotate(10deg); /* Hafif döndür */
+}
+
+/* Cevap verildikten sonra sonuç mesajları için animasyonlar */
 .hidden {
     opacity: 0;
     visibility: hidden;
@@ -109,15 +147,15 @@ h1 {
 }
 
 .result-message {
-    font-size: 2em;
+    font-size: 2.2em; /* Sonuç mesajının boyutu */
     font-weight: bold;
-    margin-top: 30px;
-    padding: 20px;
-    border-radius: 10px;
+    margin-top: 40px;
+    padding: 25px;
+    border-radius: 15px;
     color: #fff;
-    opacity: 0; /* Başlangıçta gizli */
-    transform: translateY(20px); /* Hafif aşağıdan başlama */
-    transition: opacity 0.5s ease-out, transform 0.5s ease-out;
+    opacity: 0;
+    transform: translateY(30px);
+    transition: opacity 0.6s ease-out, transform 0.6s ease-out;
 }
 
 .result-message.visible {
@@ -126,11 +164,13 @@ h1 {
 }
 
 .result-message.success {
-    background-color: #28a745; /* Yeşil arka plan */
+    background-color: #5cb85c; /* Daha hoş bir yeşil tonu */
+    box-shadow: 0 5px 15px rgba(40, 167, 69, 0.3);
 }
 
 .result-message.fail {
-    background-color: #dc3545; /* Kırmızı arka plan */
+    background-color: #d9534f; /* Daha hoş bir kırmızı tonu */
+    box-shadow: 0 5px 15px rgba(220, 53, 69, 0.3);
 }
 
 /* Küçük ekranlar için responsive ayarlar */
@@ -150,5 +190,8 @@ h1 {
     }
     .result-message {
         font-size: 1.5em;
+    }
+    .decoration {
+        display: none; /* Küçük ekranlarda dekorasyonları gizle */
     }
 }
